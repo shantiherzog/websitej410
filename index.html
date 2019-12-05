@@ -1,0 +1,473 @@
+
+<!doctype html>
+
+<html>
+	
+<head>
+    
+    <title>The Witching Hour - Home </title>
+    
+    <meta content="The latest on real, modern day witchcraft, spells, symbols, history, tarot, and how-to’s at The Witching Hour" name="description">
+    
+    <meta content="the witching hour, real witchcraft, modern witchcraft, modern day witchcraft, spells, symbols, history of witchcraft, modern guide" name="keywords">
+
+<script>
+    (function($, window, document) {
+
+  const defaults = {
+    fill: "#000",
+    stroke: "#000",
+    size: 20,
+    delay: 0,
+    duration: 1500,
+    pause: 1000
+  };
+  const optionsKeys = ["fill", "stroke", "size", "delay", "duration", "pause"];
+  
+  const optionsStrToObj = function(optionsStr) {
+    const optionsArr = !!optionsStr ? optionsStr.split(" ") : [];
+    var optionsObj = {};
+    
+    for (var i=0; i<optionsArr.length; ++i) {
+      optionsObj[optionsKeys[i]] = optionsArr[i];
+    }
+    
+    return optionsObj;
+  };
+  
+  $.fn.sparkle = function(options) {
+    $.destroySparkle = $.destroySparkle || {};
+    
+    const $this = this;
+    const id = this.data("sparkle-id") || (new Date()).getTime() + Math.random();
+    
+    if (options === "destroy" && this.find("svg").length > 0) {
+      $.destroySparkle[id] = true;
+      this.data("sparkle-id", null);
+    }
+    
+    var settings;
+
+    if (options instanceof Array) {
+      for (var i=0; i<options.length; ++i) {
+        $this.sparkle(optionsStrToObj(options[i]));
+      }
+      
+      return;
+    } else if (options instanceof Object) {
+      settings = $.extend({}, defaults, options);
+    } else {
+      settings = defaults;
+    }
+    
+    const cssAnimationAttr = "my-sparkle " + settings.duration + "ms infinite linear";
+
+    const $star = $('<svg class="my-sparkle" version="1.1" viewBox="0.0 0.0 50.0 50.0" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><clipPath id="p.0"><path d="m0 0l50.0 0l0 50.0l-50.0 0l0 -50.0z" clip-rule="nonzero"></path></clipPath><g clip-path="url(#p.0)"><path fill="' + settings.stroke + '" fill-opacity="0.0" d="m0 0l50.0 0l0 50.0l-50.0 0z" fill-rule="nonzero"></path><path fill="' + settings.fill + '" d="m0.62204725 25.0l20.068499 -4.323374l4.309454 -20.13332l4.309454 20.13332l20.068499 4.323374l-20.068499 4.323374l-4.309454 20.133318l-4.309454 -20.133318z" fill-rule="nonzero"></path><path stroke="' + settings.stroke + '" stroke-width="1.0" stroke-linejoin="round" stroke-linecap="butt" d="m0.62204725 25.0l20.068499 -4.323374l4.309454 -20.13332l4.309454 20.13332l20.068499 4.323374l-20.068499 4.323374l-4.309454 20.133318l-4.309454 -20.133318z" fill-rule="nonzero"></path></g></svg>').css({
+        position: "absolute",
+        width: settings.size,
+        height: settings.size,
+        zIndex: 9999
+    });
+
+    const w = this.width();
+    const h = this.height();
+
+    const getCoordinates = function() {
+      return {
+        left: Math.random() * w,
+        top: Math.random() * h
+      };
+    };
+
+    const placeStar = function(init) {
+      const coords = getCoordinates();
+
+      if (init) {
+        $this.append($star);
+      }
+
+      $star.css({
+        "-moz-animation": cssAnimationAttr,
+        "-webkit-animation": cssAnimationAttr,
+        animation: cssAnimationAttr,
+        display: "block",
+        left: coords.left,
+        top: coords.top
+      });
+
+      window.setTimeout(function() {
+        $star.css({
+          "-moz-animation": null,
+          "-webkit-animation": null,
+          animation: null,
+          display: "none"
+        });
+        
+        if (!$.destroySparkle[id]) {
+          window.setTimeout(function() {
+            placeStar(false);
+          }, settings.pause);
+        } else {
+          $star.remove();
+        }
+      }, settings.duration);
+    };
+
+    if (this.css("position") === "static") {
+      this.css("position", "relative");
+    }
+
+    if (!$.destroySparkle[id] && options !== "destroy") {
+      window.setTimeout(function() {
+        placeStar(true);
+      }, settings.delay);
+
+      this.data("sparkle-id", id);
+    }
+
+    return this;
+  };
+  
+  $("#main").sparkle({
+    size: 25,
+  }).sparkle({
+    delay: 1000,
+    pause: 750,
+    size: 10
+  });
+
+  /*window.setTimeout(function() {
+    $("#main").sparkle("destroy");
+  }, 21000);*/
+
+})(jQuery, window, document);
+    </script>
+	
+<!--The following displays language used in browser to interpret page -->
+<meta charset="UTF-8">
+
+<!--The following line of code displays the page title on a browser tab -->
+<title>The Witching Hour | Home</title>
+
+<!--link tags are for linking to external files, in this case your CSS stylesheet-->
+<link href="style.css" rel="stylesheet" type="text/css">
+	
+<!--link tags are for linking to external files, in this case a special CSS stylesheet-->
+<link href="normalize.css" rel="stylesheet" type="text/css">
+
+<!--the following tag tells the browser to adjust the site according to screen size-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--The following code links to the jquery library -->
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" scr="js/sparkle.jquery.js"></script>
+
+<!--The following code links to the javascript file that runs the slideshow -->	
+<script type="text/javascript" src="js/jquery.cycle2.min.js"></script>
+    
+<!--The following code links to the javascript file that runs the parallax image -->    
+<script src="js/parallax.min.js"></script>
+	
+<!--The following code links to Google Fonts-->
+<link href="https://fonts.googleapis.com/css?family=Lato|Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
+	
+<!--The following javscript runs the jquery slideshow -->
+<script type="text/javascript">
+$('#slider').cycle({});
+</script>
+
+<!--The following javascript runs the nav bar dissapear on scroll-->
+<script type="text/javascript">
+// Hide Header on on scroll down
+var didScroll;
+var lastScrollTop = 0;
+var delta = 5;
+var navbarHeight = $('header').outerHeight();
+
+$(window).scroll(function(event){
+    didScroll = true;
+});
+
+setInterval(function() {
+    if (didScroll) {
+        hasScrolled();
+        didScroll = false;
+    }
+}, 250);
+
+function hasScrolled() {
+    var st = $(this).scrollTop();
+    
+    // Make sure they scroll more than delta
+    if(Math.abs(lastScrollTop - st) <= delta)
+        return;
+    
+    // If they scrolled down and are past the navbar, add class .nav-up.
+    // This is necessary so you never see what is "behind" the navbar.
+    if (st > lastScrollTop && st > navbarHeight){
+        // Scroll Down
+        $('header').removeClass('nav-down').addClass('nav-up');
+    } else {
+        // Scroll Up
+        if(st + $(window).height() < $(document).height()) {
+            $('header').removeClass('nav-up').addClass('nav-down');
+        }
+    }
+    
+    lastScrollTop = st;
+}
+</script>
+    
+<!--Favicon-->
+<link rel="apple-touch-icon" sizes="180x180" href="img/fav/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="img/fav/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="img/fav/favicon-16x16.png">
+<link rel="manifest" href="img/fav/site.webmanifest">
+<link rel="mask-icon" href="img/fav/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!--End Favicon-->
+    
+<!--back to top button-->
+<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+<script>
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 30 || document.documentElement.scrollTop > 30) {
+    document.getElementById("myBtn").style.display = "block";
+  } else {
+    document.getElementById("myBtn").style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}    
+</script>   
+</head>
+
+<body>
+
+<!--beginning of navigation section-->
+<header>
+<div class="nav-container">
+<div class="brand"><img src="img/logo.png" width="190" height="75" alt=""/></div>
+<nav>
+<div class="nav-mobile"><a id="nav-toggle" href="#!"><span></span></a></div>
+  <ul class="nav-list">
+        <li>
+          <a href="#home">Witchcraft Today</a>
+        </li>
+	   <li>
+          <a href="#gal">Modern Ceremonies</a>
+		  </li>
+	  	<li>
+          <a href="#tl">What is a 'Witch'?</a>
+        </li>
+        <li>
+          <a href="#vid">Spiritual Healers</a>
+			</li>
+      <li>
+          <a href="#num">Timeline</a>
+			</li>
+      </ul>
+</nav>
+</div>
+<!--closing navigation tag-->
+</header>
+<!--end of navigation section-->
+    
+<!--main image-->
+<div class="container">
+	
+</div>
+<!--animated welcome-->
+<div class="wrapper">
+	<h2>Welcome</h2>
+	
+	<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1366 768" style="enable-background:new 0 0 1366 768;" xml:space="preserve">
+
+
+</svg>
+	
+	</div>
+	
+	
+	
+	
+<!--beginning of main content area-->
+<div class="row whiteBG">
+    <div id= "home" class="divider"><span></span><span>Witchcraft Today</span><span></span></div>
+<article>
+<p class="tab">Witches have been a part of human history since the very beginning. Early witches were people who used their knowledge of the natural world to perform homeopathic and spiritual healing, wise women, or women in positions of power such as pagan leaders or divine oracles. They were goddesses, healers, midwives, shamans. This site explores the connotation of the label 'witch', from its persecution to its reclamation.
+  <br><br> Today, some women feel it is important to realize and celebrate their own intuition, empathy, and connection to the earth. While they may or may not claim the title 'witch', they practice what feels right to them, remembering what those called witches did many years ago: healing, meditation, divination, and everything in between.</p>
+<p class="tab"><a href="#gal">Modern Ceremonies</a></p>
+</article>
+    
+</div>
+
+<!--beginning of slideshow section-->
+<div class="row blueBG"><!--beginning of row-->
+    <div id="gal" class="divider"><span></span><span>A Modern Full Moon Ceremony</span><span></span></div>
+<article><!--beginning of article-->
+<p class="tab">Laurine Tonkin is a medium, psychic, spiritual healer, and teacher. She practices tarot, performs psychic readings, and leads full moon ceremonies in Morro Bay, California. Although some may associate these things with witchcraft, to her, it is a lifestyle that goes beyond a stereotype.</p>
+<!--beginning of slideshow-->
+<div id="slider"
+data-cycle-caption="#alt-caption"
+data-cycle-caption-template="{{alt}}"
+data-cycle-fx="scrollHorz"
+data-cycle-pause-on-hover="true"
+data-cycle-speed="200">
+<div class="cycle-prev"></div>
+<div class="cycle-next"></div>
+<img src="img/1.jpg" width="100%" height="100%" alt="Every full moon, the back patio at Top Dog cafe in Morro Bay transforms into a ceremony space for all things astrological and spiritual."/>
+<img src="img/2.jpg" width="100%" height="100%" alt="The space is carefully created by a woman who has been working as a spiritual healer for almost 20 years. A passerby might call the candles, crystals, and burning sage ‘witchy,’ but her goal is only to do what feels right for herself and those who’ve come to her ceremony. No labels here."/>
+<img src="img/3.jpg" width="100%" height="100%" alt="Laurine Tonkin is an intuitive medium, psychic, and healer. 'I connect into the collective pulse of what's happening in the universe… and basically get a feeling or a knowing in myself that helps me to guide and direct other people into their highest healing or into their highest place and that they can exist in this moment,' she said."/>
+<img src="img/4.jpg" width="100%" height="100%" alt="Tonkin uses items like crystals, figures of the divine feminine, candles, and tarot cards to channel energy for her ceremony and its attendees. She began the evening with a guided meditation to find a sense of being grounded."/>
+<img src="img/5.jpg" width="100%" height="100%" alt="The emotion in the space was palpable as participants burned pieces of paper with sentiments or aspects of their life they wanted to release. Grace Collins found sobriety after her first moon ceremony, after years of struggling with addiction. 'It’s always been a huge thing in my life; going back to that moment of throwing that into the fire and letting it go,' Collins said."/>
+<img src="img/6.jpg" width="100%" height="100%" alt="'Sitting with Laurine and having the intuitive messages come through, and being able to reflect on what I need to release in my life has been really beneficial,' said participant Julie Donahoo."/>
+<img src="img/7.jpg" width="100%" height="100%" alt="Tonkin feels a calling to facilitating spiritual understanding and healing to groups of people. She ended the ceremony by having participants draw tarot cards."/>
+<img src="img/8.jpg" width="100%" height="100%" alt="If a participant needed help with their interpretation, Laurine would gently guide them until they found the meaning together. 'There's something in me that says you have to go like create magic like that,' Tonkin said."/>
+<img src="img/9.jpg" width="100%" height="100%" alt="'Ceremony is powerful in the way that you bring together like minded people, you create a circle of energy, you call on your angels and guides and you call on other people's angels and guides. The amount of healing that can happen in a group setting like that when a lot of people are focused on the same task is extremely powerful,' said Tonkin."/>
+<img src="img/10.jpg" width="100%" height="100%" alt="Tonkin finds the label of ‘witch’ to be a compliment, though she doesn’t explicitly call herself one. 'I think that we are definitely blowing out that old stereotype, where people are running around doing hexes, that's not what this is about. It's about women working with medicine, with plants, with the stars, with the earth, with the planets. We're a part of all of that,' she said."/>
+</div><!--end of slideshow-->
+<!--beginning of slideshow caption-->
+<div id="alt-caption" class="center">
+</div><!--end of slideshow caption-->
+<p class="tab"><a href="#tl">What is a 'Witch'?</a></p>
+</article><!--end of article-->
+</div><!--end of row-->
+<!--end of slideshow section-->
+    
+	
+<!--beginning of audio section-->
+<div class="row whiteBG">
+    <div id="tl" class="divider"><span></span><span>What is a 'Witch'?</span><span></span></div>
+<article>
+  <p class="tab">Click on images to hear what comes to mind when people think of Witches. <br>(Double-click to pause audio)</p>
+  <div class="table">
+	<div id="trip">
+<audio id="audio_1">
+    <source src="audio/interview%202.mp3" type="audio/mpeg" />
+</audio>
+            
+<audio id="audio_2">
+    <source src="audio/interview%201.mp3" type="audio/mpeg" />
+</audio>
+            
+<audio id="audio_3">
+	<source src="audio/interview%203.mp3" type="audio/mpeg" />
+</audio>
+            
+<img src="img/rollover/portrait-2.jpg" class="rollover" alt="description" onMouseOver="this.src='img/rollover/rollover-2.jpg'" onMouseOut="this.src='img/rollover/portrait-2.jpg'" onClick="document.getElementById('audio_1').play(); return false;" onDblClick="document.getElementById('audio_1').pause(); return false;">
+ /&gt; 
+            
+<img src="img/rollover/portrait-1.jpg" class="rollover" alt="description" onMouseOver="this.src='img/rollover/rollover-1.jpg'" onMouseOut="this.src='img/rollover/portrait-1.jpg'" onClick="document.getElementById('audio_2').play(); return false;" onDblClick="document.getElementById('audio_2').pause(); return false;">
+ /&gt;
+            
+<img src="img/rollover/portrait-3.jpg" class="rollover" alt="description" onMouseOver="this.src='img/rollover/rollover-3.jpg'" onMouseOut="this.src='img/rollover/portrait-3.jpg'" onClick="document.getElementById('audio_3').play(); return false;" onDblClick="document.getElementById('audio_3').pause(); return false;">
+/&gt;
+	</div>
+</div>
+<p class="tab"><a href="#vid">Spiritual Healers</a></p>		
+</article>
+</div>
+<!--end of audio section-->
+    
+    <!--beginning of parallax image-->
+<div class="parallax" data-parallax="scroll" data-bleed="10" data-speed="0.2" iosFix="true" data-image-src="img/candle.jpg">
+</div>
+<!--end of parallax image-->
+
+<!--beginning of video section-->
+<div class="row orangeBG">
+    <div id= "vid" class="divider"><span></span><span>Spiritual Healers</span><span></span></div>
+
+<article>
+<p class="tab">To some, altars, tarot, meditation, and speaking with the spiritual realm are simply part of everyday life. Spiritual healer and mentor Annapurna Devi speaks on her knowledge of the history of witchcraft and her own practices. </p>	
+<video width="100%" height="100%" poster="img/poster.jpg" controls>
+<source src="img/video.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+<p class="tab"><a href="#num">Timeline</a></p>
+</article>
+</div>
+<!--end of video section-->
+
+<!--beginning of new section-->
+<div class="row whiteBG">
+<div id="num" class="divider"><span></span><span>Perceptions Over Time</span><span></span></div>
+<article>
+<p class="tab"></p>
+<div class="infogram-embed" data-id="51040d5b-cf68-4931-b4d3-8abe1b63614d" data-type="interactive" data-title="Timeline Dark Infographic"></div><script>!function(e,i,n,s){var t="InfogramEmbeds",d=e.getElementsByTagName("script")[0];if(window[t]&&window[t].initialized)window[t].process&&window[t].process();else if(!e.getElementById(n)){var o=e.createElement("script");o.async=1,o.id=n,o.src="https://e.infogram.com/js/dist/embed-loader-min.js",d.parentNode.insertBefore(o,d)}}(document,0,"infogram-async");</script>
+</article>
+</div>
+<!--end of new section-->
+	
+<!--beginning of footer-->
+<footer>The Witching Hour | San Luis Obispo, CA | <a href="mailto: shantiherzog77@gmail.com?Subject=Inquiry" target="_top">Send Email</a> | Copyright 2019 | Site by Shanti Herzog 
+</footer>
+<!--end of footer-->
+	
+</body>
+	
+<!--the following script controls the responsive navigation-->
+<script>
+	(function($) { // Begin jQuery
+  $(function() { // DOM ready
+    // If a link has a dropdown, add sub menu toggle.
+    $('nav ul li a:not(:only-child)').click(function(e) {
+      $(this).siblings('.nav-dropdown').toggle();
+      // Close one dropdown when selecting another
+      $('.nav-dropdown').not($(this).siblings()).hide();
+      e.stopPropagation();
+    });
+    // Clicking away from dropdown will remove the dropdown class
+    $('html').click(function() {
+      $('.nav-dropdown').hide();
+    });
+    // Toggle open and close nav styles on click
+    $('#nav-toggle').click(function() {
+      $('nav ul').slideToggle();
+    });
+    // Hamburger to X toggle
+    $('#nav-toggle').on('click', function() {
+      this.classList.toggle('active');
+    });
+  }); // end DOM ready
+})(jQuery); // end jQuery
+	</script>
+	<script>
+	var headertext = [];
+var headers = document.querySelectorAll("#miyazaki th"),
+tablerows = document.querySelectorAll("#miyazaki th"),
+tablebody = document.querySelector("#miyazaki tbody");
+for(var i = 0; i < headers.length; i++) {
+	var current = headers[i];
+	headertext.push( current.textContent.replace( /\r?\n|\r/,"") );
+}
+for (var i = 0, row; row = tablebody.rows[i]; i++) {
+	for (var j = 0, col; col = row.cells[j]; j++) {
+		col.setAttribute("data-th", headertext[j]);
+	}
+}
+</script>
+	
+	<!----Prevents audio tracks from playing simultaneously---->
+<script>
+document.addEventListener('play', function(e){
+    var audios = document.getElementsByTagName('audio');
+    for(var i = 0, len = audios.length; i < len;i++){
+        if(audios[i] != e.target){
+            audios[i].pause();
+        }
+    }
+}, true);
+    </script>
+
+</html>
